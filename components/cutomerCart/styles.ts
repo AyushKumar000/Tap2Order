@@ -75,7 +75,7 @@ export const styles = StyleSheet.create({
     color: 'black',
   },
   ratingContainer: {
-    marginVertical: 10,
+    marginVertical: 20,
   },
   starContiner: {
     flexDirection: 'row',
@@ -88,7 +88,7 @@ export const styles = StyleSheet.create({
   },
   buttonContainer: {
     flexDirection: 'row',
-    justifyContent: 'flex-start',
+    justifyContent: 'flex-end',
     gap: 10,
   },
   text: {

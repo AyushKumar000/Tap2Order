@@ -174,6 +174,11 @@ const VendorProfile = () => {
       <Button mode="contained" onPress={handleSignOut} style={styles.button}>
         Sign Out
       </Button>
+      <View style={{alignItems: 'center', paddingVertical: 10}}>
+
+      <Text style={{fontWeight:100}}>Copyright © 2024 Tap2Order</Text>
+      <Text style={{fontWeight:100}}>Design & Developed By Ayush</Text>
+      </View>
 
     </View>
   );

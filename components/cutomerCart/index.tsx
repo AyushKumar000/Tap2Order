@@ -5,10 +5,7 @@ import PlusIcon from "../../assets/icons/plusIcon";
 import Button from "../../components/button";
 import { styles } from "./styles";
 
-interface CartCardProps {
-  canEdit: boolean;
-  onEdit: () => void;
-  onDelete: () => void;
+interface CusCartCardProps {
   item: item;
 }
 
@@ -24,8 +21,8 @@ interface item {
   status: string;
 }
 
-const CartCard = ({ canEdit, onEdit, onDelete, item }: CartCardProps) => {
-  const { menu, order_code, quantity, total_price, payment } = item;
+const CusCartCard = ({ item }: CusCartCardProps) => {
+  const { menu, order_code, quantity, total_price, payment, status } = item;
 
   return (
     <View style={styles.cardContainer}>
@@ -45,18 +42,7 @@ const CartCard = ({ canEdit, onEdit, onDelete, item }: CartCardProps) => {
             <Text style={styles.text}>Quantity : {quantity}</Text>
             <Text style={styles.text}>Price : {total_price}</Text>
             <Text style={styles.text}>Payment : {payment}</Text>
-          </View>
-          <View style={styles.buttonContainer}>
-            {canEdit && (
-              <>
-                <Button borderColor="#FFA726" onClick={onEdit}>
-                  <Text style={{ color: "#FFA726" }}>Processing</Text>
-                </Button>
-              </>
-            )}
-            <Button borderColor="#FFA726" onClick={onDelete}>
-              <Text style={{ color: "#FFA726" }}>Done</Text>
-            </Button>
+            <Text style={styles.text}>Status : {status}</Text>
           </View>
         </View>
       </View>
@@ -64,4 +50,4 @@ const CartCard = ({ canEdit, onEdit, onDelete, item }: CartCardProps) => {
   );
 };
 
-export default CartCard;
+export default CusCartCard;

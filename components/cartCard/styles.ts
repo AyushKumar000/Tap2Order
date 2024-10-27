@@ -91,4 +91,7 @@ export const styles = StyleSheet.create({
     justifyContent: 'flex-end',
     gap: 10,
   },
+  text: {
+    fontSize:15
+  }
 });

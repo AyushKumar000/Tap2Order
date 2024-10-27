@@ -1,9 +1,11 @@
-// app/index.tsx
 import React, { useEffect } from "react";
 import { StyleSheet, View, Text, TouchableOpacity } from "react-native";
-import { Href, useRouter } from "expo-router"; // Expo router hook for navigation
+import { Href, useRouter } from "expo-router";
 import { Image } from "expo-image";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { LogBox } from "react-native";
+
+LogBox.ignoreAllLogs();
 
 const WelcomeScreen = () => {
   const router = useRouter();
@@ -11,9 +13,9 @@ const WelcomeScreen = () => {
 
   useEffect(() => {
     const checkToken = async () => {
-      const token = await AsyncStorage.getItem("userToken"); // Check for token
+      const token = await AsyncStorage.getItem("userToken");
       if (token) {
-        replace = true; // Redirect to VendorIndex if token exists
+        replace = true;
       }
     };
 

@@ -1,7 +1,14 @@
 import axios from "axios";
 import { Href, Link, router } from "expo-router";
 import React, { useState } from "react";
-import { View, StyleSheet, Image, Dimensions, Alert } from "react-native";
+import {
+  View,
+  StyleSheet,
+  Image,
+  Dimensions,
+  Alert,
+  ToastAndroid,
+} from "react-native";
 import { TextInput, Button, Text, Snackbar } from "react-native-paper";
 import { getSignUpEndpoint } from "../../constants/api";
 
@@ -28,27 +35,25 @@ const SignUp = () => {
     try {
       console.log(email, password);
 
-      const response = await axios.post(
-        getSignUpEndpoint(), // Your signup API endpoint
-        {
-          email,
-          password,
-        }
-      );
+      const response = await axios.post(getSignUpEndpoint(), {
+        email,
+        password,
+      });
 
-      // Handle successful signup response
       const { message } = response.data;
-      Alert.alert("Tap2Order", message || "User registered successfully");
+      ToastAndroid.show("User registered successfully!", ToastAndroid.SHORT);
 
       router.push("/(auth)/sign-in" as Href);
     } catch (error: any) {
       console.log(error);
 
-      // Handle errors
       if (error.response) {
-        Alert.alert("Error", error.response.data.message || "Signup failed");
+        ToastAndroid.show("Signup failed", ToastAndroid.SHORT);
       } else {
-        Alert.alert("Error", "Something went wrong. Please try again.");
+        ToastAndroid.show(
+          "Something went wrong. Please try again.",
+          ToastAndroid.SHORT
+        );
       }
     }
   };
@@ -133,11 +138,11 @@ const styles = StyleSheet.create({
   },
   upperArc: {
     flex: 1,
-    backgroundColor: "#FFA726", // Attractive food-related color
+    backgroundColor: "#FFA726",
   },
   lowerArc: {
     flex: 1,
-    backgroundColor: "#FFA726", // Complementary color
+    backgroundColor: "#FFA726",
   },
   logoContainer: {
     alignItems: "center",

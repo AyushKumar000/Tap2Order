@@ -26,7 +26,7 @@ const Button: React.FC<ButtonProps>  = ({
   children ,
   bgColor = "#ffff",
   height = 40,
-  pHorizontal = 5,
+  pHorizontal = 15,
   pVertical = 4,
   textColor = "#ECEDEE",
   radius = 8,

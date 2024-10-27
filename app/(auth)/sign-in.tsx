@@ -2,10 +2,17 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from "axios";
 import { Href, Link, router } from "expo-router";
 import React, { useEffect, useState } from "react";
-import { View, StyleSheet, Image, Dimensions, Alert, ToastAndroid } from "react-native";
+import {
+  View,
+  StyleSheet,
+  Image,
+  Dimensions,
+  Alert,
+  ToastAndroid,
+} from "react-native";
 import { TextInput, Button, Text, Snackbar } from "react-native-paper";
-import { getSignInEndpoint } from '../../constants/api';
-import { useNavigation } from '@react-navigation/native';
+import { getSignInEndpoint } from "../../constants/api";
+import { useNavigation } from "@react-navigation/native";
 
 const { width, height } = Dimensions.get("window");
 
@@ -16,35 +23,19 @@ const SignIn = () => {
   const [errorMessage, setErrorMessage] = useState("");
   const navigation = useNavigation();
 
-//   useEffect(() => {
-//     const checkToken = async () => {
-//         const token = await AsyncStorage.getItem('userToken'); // Check for token
-//         if (token) {
-//             router.replace('../vendor'); // Redirect to VendorIndex if token exists
-//         }
-//     };
-
-//     checkToken();
-// }, [navigation]);
-
   const handleSignIn = async () => {
     try {
       console.log(email, password);
 
-      const response = await axios.post(
-        getSignInEndpoint(),
-        {
-          email,
-          password,
-        }
-      );
+      const response = await axios.post(getSignInEndpoint(), {
+        email,
+        password,
+      });
 
-      // // Save the token and navigate to the home page
       const { token, message } = response.data;
-      // You can store the token in AsyncStorage or any state management solution
-      console.log("Token:", token);
-      ToastAndroid.show('Login successfully!', ToastAndroid.SHORT);
-      // Alert.alert("Tap2Order", "Login Successfull");
+
+      ToastAndroid.show("Login successfully!", ToastAndroid.SHORT);
+
       await AsyncStorage.setItem("userToken", token);
       router.replace("/vendor" as Href);
     } catch (error: any) {
@@ -55,7 +46,6 @@ const SignIn = () => {
       } else {
         Alert.alert("Error", "Something went wrong. Please try again.");
       }
-      // Sign-in logic here
     }
   };
 
@@ -130,11 +120,11 @@ const styles = StyleSheet.create({
   },
   upperArc: {
     flex: 1,
-    backgroundColor: "#FFA726", // Attractive food-related color
+    backgroundColor: "#FFA726",
   },
   lowerArc: {
     flex: 1,
-    backgroundColor: "#FFA726", // Complementary color
+    backgroundColor: "#FFA726",
   },
   logoContainer: {
     alignItems: "center",

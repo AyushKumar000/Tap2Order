@@ -1,6 +1,5 @@
-// Home.tsx
 import { Camera, CameraView } from "expo-camera";
-import { Stack } from "expo-router";
+import { router, Stack } from "expo-router";
 import {
   AppState,
   Linking,
@@ -9,13 +8,16 @@ import {
   StatusBar,
   StyleSheet,
   Alert,
+  ToastAndroid,
 } from "react-native";
 import { Overlay } from "./overlay";
 import { useEffect, useRef } from "react";
+import { useNavigation } from "@react-navigation/native";
 
 export default function Home() {
   const qrLock = useRef(false);
   const appState = useRef(AppState.currentState);
+  const navigation = useNavigation();
 
   useEffect(() => {
     const subscription = AppState.addEventListener("change", (nextAppState) => {
@@ -38,32 +40,32 @@ export default function Home() {
 
     qrLock.current = true;
 
-    // Extract the endpoint and token from the data
-    const [endpoint, token] = data.split('*');
-    
-    // Perform actions based on extracted `endpoint` and `token`
+    const [endpoint, token] = data.split("*");
+
     if (endpoint && token) {
-      // Use `endpoint` and `token` to fetch data or navigate
       try {
         console.log(endpoint, token);
-        
+
         const menuResponse = await fetch(`${endpoint}`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
         });
         const menuData = await menuResponse.json();
-        
-        // Navigate to Menu screen with `menuData` (if applicable)
-        Alert.alert("Menu Retrieved", JSON.stringify(menuData));
+
+        router.push({
+          pathname: "./Vendor_Menu/showMenu",
+          params: {
+            menuData: JSON.stringify(menuData),
+          },
+        });
       } catch (error) {
-        Alert.alert("Error", "Failed to fetch the menu data.");
+        ToastAndroid.show("Failed to fetch the menu data.", ToastAndroid.SHORT);
       }
     } else {
-      Alert.alert("Invalid QR Code", "The QR code does not contain a valid menu link.");
+      ToastAndroid.show("Invalid QR Code", ToastAndroid.SHORT);
     }
 
-    // Unlock the QR scanner after some delay
     setTimeout(() => {
       qrLock.current = false;
     }, 1000);
