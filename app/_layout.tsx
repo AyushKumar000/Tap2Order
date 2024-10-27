@@ -3,6 +3,7 @@ import { useFonts } from 'expo-font';
 import { Stack } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 import { useEffect } from 'react';
+import { StatusBar } from 'expo-status-bar'
 import 'react-native-reanimated';
 
 import { useColorScheme } from '@/hooks/useColorScheme';
@@ -29,9 +30,14 @@ export default function RootLayout() {
   return (
     <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
       <Stack>
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+        {/* to remove the hear shown */}
+        <Stack.Screen name="vendor" options={{ headerShown: false }} />
+        <Stack.Screen name="customer" options={{ headerShown: false }} />
+        <Stack.Screen name="index" options={{ headerShown: false }} />
+        <Stack.Screen name="(auth)" options={{ headerShown: false }} />
         <Stack.Screen name="+not-found" />
       </Stack>
+      <StatusBar backgroundColor='#161622' style='light' />
     </ThemeProvider>
   );
 }
